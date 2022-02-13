@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:seojun_dataview_app/service/account.dart';
 import 'package:seojun_dataview_app/theme.dart';
 
 class SignInPage extends StatefulWidget {
@@ -10,12 +9,12 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  bool pwdVisible = false;
-  bool remember = false;
+  bool isPwdVisible = false;
+  bool? isRemember = false;
 
-  void handleSignIn(email, password, remember) {
+  /*void handleSignIn(email, password, remember) {
     signInService(email, password, remember);
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +39,37 @@ class _SignInPageState extends State<SignInPage> {
                         color: textWhiteGrey,
 
               ),
-                      child: TextFormField(),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Email',
+                          hintStyle: heading6.copyWith(color: textGray),
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide.none
+                          )
+                        ),
+                      ),
                     ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: textWhiteGrey,
+                        borderRadius: BorderRadius.circular(14.0)
+                      ),
+                      child: TextFormField(
+                        obscureText: !isPwdVisible,
+
+                      ),
+                    ),
+                    Checkbox(
+                      value: isRemember,
+                      onChanged: (value) {
+                        setState(() {
+                          isRemember = value;
+                        });
+                      },
+                    )
                   ],
                 ),
               )

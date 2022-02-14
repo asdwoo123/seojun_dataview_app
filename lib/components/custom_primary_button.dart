@@ -2,6 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:seojun_dataview_app/theme.dart';
 
 class CustomPrimaryButton extends StatelessWidget {
+  Color buttonColor = primaryColor;
+  Color textColor = Colors.white;
+  String textValue = '';
+
+  CustomPrimaryButton({Color buttonColor, Color textColor, String textValue}) {
+    this.buttonColor = buttonColor;
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+import 'package:flutter/material.dart';
+import 'package:seojun_dataview_app/theme.dart';
+
+class CustomPrimaryButton extends StatelessWidget {
   Color? buttonColor;
   Color? textColor;
   String? textValue;

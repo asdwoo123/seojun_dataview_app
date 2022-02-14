@@ -5,18 +5,16 @@ import 'package:seojun_dataview_app/service/account.dart';
 
 FirebaseAuth auth = getAuth();
 
-
 class ScreenRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.initial:
-        auth.authStateChanges().listen((User? user) {
-          if (user == null) {
+        var user = getUser();
+        if (user == null) {
+          return
+        } else {
 
-          } else {
-
-          }
-        });
+        }
       case Routes.signIn:
       case Routes.signOut:
       case Routes.home:
@@ -24,9 +22,12 @@ class ScreenRouter {
       case Routes.project:
       case Routes.setting:
       default:
-        return MaterialPageRoute(builder: (_) => const Scaffold(
-          body: Center(child: Text('페이지를 찾을수 없습니다'),),
-        ));
+        return MaterialPageRoute(
+            builder: (_) => const Scaffold(
+                  body: Center(
+                    child: Text('페이지를 찾을수 없습니다'),
+                  ),
+                ));
     }
   }
 }

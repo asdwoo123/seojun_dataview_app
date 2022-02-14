@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:seojun_dataview_app/navigation/routes.dart';
+import 'package:seojun_dataview_app/navigation/screen_router.dart';
 import 'package:seojun_dataview_app/pages/signIn.dart';
+import 'package:seojun_dataview_app/pages/signUp.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +36,9 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        home: const SignInPage(),
+        /*initialRoute: Routes.initial,
+        onGenerateRoute: ScreenRouter.generateRoute,*/
+        home: SignInPage(),
       ),
     );
   }

@@ -14,7 +14,7 @@ bool emailValidate(String email) {
 }*/
 
 void signInService(String email, String password, bool remember) async {
-  print(email + password);
+
   try {
     await auth.signInWithEmailAndPassword(email: email, password: password);
     if (remember) {
@@ -22,6 +22,8 @@ void signInService(String email, String password, bool remember) async {
     } else {
       await auth.setPersistence(Persistence.NONE);
     }
+
+    print(email + password);
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       print('No user found for that email.');

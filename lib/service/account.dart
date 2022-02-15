@@ -17,11 +17,11 @@ void signInService(String email, String password, bool remember) async {
 
   try {
     await auth.signInWithEmailAndPassword(email: email, password: password);
-    if (remember) {
+    /*if (remember) {
       await auth.setPersistence(Persistence.SESSION);
     } else {
       await auth.setPersistence(Persistence.NONE);
-    }
+    }*/
 
     print(email + password);
   } on FirebaseAuthException catch (e) {

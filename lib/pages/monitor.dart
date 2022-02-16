@@ -11,7 +11,11 @@ class MonitorPage extends StatefulWidget {
 }
 
 class _MonitorPageState extends State<MonitorPage> {
-  final Stream<DocumentSnapshot<Map<String, dynamic>>> projectStream = FirebaseFirestore.instance.collection('project').doc(getUser()?.uid).snapshots();
+  final Stream<
+      DocumentSnapshot<Map<String, dynamic>>> projectStream = FirebaseFirestore
+      .instance.collection('project').doc(getUser()?.uid).snapshots();
+  CollectionReference investors = FirebaseFirestore.instance.collection(
+      'investors');
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,8 @@ class _MonitorPageState extends State<MonitorPage> {
       padding: const EdgeInsets.all(15.0),
       child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
         stream: projectStream,
-        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
+        builder: (BuildContext context,
+            AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.hasError) {
             return const Text('Something went wrong');
           }
@@ -28,10 +33,57 @@ class _MonitorPageState extends State<MonitorPage> {
             return const Text('Loading');
           }
 
+          var projectNames = snapshot.data?.data()?['projects'];
           return ListView(
-            children: snapshot.data?.data()?['projects']?.map((projectName) {
-              return Container();e
-            }),
+            children: projectNames.map<Widget>((projectName) {
+              projectName = projectName as String;
+              return FutureBuilder<DocumentSnapshot>(
+                  future: investors.doc(projectName).get(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Something went wrong');
+                    }
+
+                    if (snapshot.hasData && !snapshot.data!.exists) {
+                      return Text('Document does not exist');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      Map<String, dynamic> data = snapshot.data!.data() as Map<
+                          String,
+                          dynamic>;
+                      var connect = data['connect'] as String;
+                      var name = data['name'] as String;
+                      List<dynamic> settings = data['setting'];
+
+                      return Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                              children: <Widget>[
+                              Text(name),
+                          ListView(children:
+                          settings.map<Widget>((setting) {
+                            var name = setting['name'] as String;
+                            return Row(children: [
+                              Text('name'),
+                              Text(name)
+                            ]);
+                          }).toList(),
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                          )],
+                        ),
+                      ),
+                    );
+
+                    }
+
+                    return const Text
+                    ('loading');
+                  });
+            }).toList(),
           );
         },
       ),

@@ -37,7 +37,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(title: Text(projectName),),
      body: SafeArea(
        child: Container(
          child: widgetOptions.elementAt(selectedIndex),

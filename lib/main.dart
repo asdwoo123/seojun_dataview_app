@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:seojun_dataview_app/navigation/routes.dart';
 import 'package:seojun_dataview_app/pages/home.dart';
+import 'package:seojun_dataview_app/pages/project.dart';
 import 'package:seojun_dataview_app/pages/signIn.dart';
 import 'package:seojun_dataview_app/pages/signUp.dart';
 
